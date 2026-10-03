@@ -2,6 +2,11 @@
 
 A fast, multithreaded TCP port scanner written in Python. Scans a target host for open ports, identifies services by port number, and attempts to grab banners from live services. Results can be saved to a JSON file.
 
+> ⚠️ **Authorized use only.** Scan hosts you own or have explicit written permission to test.
+> Port scanning third-party systems without permission may violate the U.S. Computer Fraud and
+> Abuse Act and equivalent laws elsewhere. `scanme.nmap.org` is a host the Nmap project
+> maintains specifically for scan testing.
+
 ---
 
 ## Features
@@ -25,7 +30,7 @@ A fast, multithreaded TCP port scanner written in Python. Scans a target host fo
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/network-scanner.git
+git clone https://github.com/roscoe02/network-scanner.git
 cd network-scanner
 ```
 
@@ -140,6 +145,18 @@ python scanner.py 192.168.1.50 -p 1-1024 --timeout 3
 ## Legal & ethical use
 
 Only scan hosts you own or have explicit written permission to test. Unauthorised port scanning may violate computer misuse laws in your jurisdiction.
+
+---
+
+## Why I built it
+
+I wanted to understand what a port scanner actually does rather than just running `nmap`. Writing it
+surfaced the parts that matter: the difference between a closed port and a filtered one, why
+`connect_ex` beats exception handling for this, how much a thread pool speeds up a 65,535-port sweep,
+and why a banner read needs a longer timeout than the connection itself.
+
+**What I'd add next:** UDP scanning, rate limiting to avoid tripping IDS thresholds, and a
+`--top-ports` flag that scans the most common ports first.
 
 ---
 
